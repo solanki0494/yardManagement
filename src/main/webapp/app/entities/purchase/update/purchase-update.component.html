@@ -1,0 +1,76 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-purchase-heading" data-cy="PurchaseCreateUpdateHeading" jhiTranslate="yardManagementApp.purchase.home.createOrEditLabel">
+        Create or edit a Purchase
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="yardManagementApp.purchase.purchaseTime" for="field_purchaseTime">Purchase Time</label>
+          <div class="d-flex">
+            <input
+              id="field_purchaseTime"
+              data-cy="purchaseTime"
+              type="datetime-local"
+              class="form-control"
+              name="purchaseTime"
+              formControlName="purchaseTime"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="yardManagementApp.purchase.invoiceNumber" for="field_invoiceNumber">Invoice Number</label>
+          <input
+            type="text"
+            class="form-control"
+            name="invoiceNumber"
+            id="field_invoiceNumber"
+            data-cy="invoiceNumber"
+            formControlName="invoiceNumber"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="yardManagementApp.purchase.invoice" for="field_invoice">Invoice</label>
+          <select
+            class="form-control"
+            id="field_invoice"
+            data-cy="invoice"
+            name="invoice"
+            formControlName="invoice"
+            [compareWith]="compareInvoice"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="invoiceOption" *ngFor="let invoiceOption of invoicesCollection">{{ invoiceOption.id }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

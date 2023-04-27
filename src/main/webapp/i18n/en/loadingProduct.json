@@ -1,0 +1,27 @@
+{
+  "yardManagementApp": {
+    "loadingProduct": {
+      "home": {
+        "title": "Loading Products",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Loading Product",
+        "createOrEditLabel": "Create or edit a Loading Product",
+        "notFound": "No Loading Products found"
+      },
+      "created": "A new Loading Product is created with identifier {{ param }}",
+      "updated": "A Loading Product is updated with identifier {{ param }}",
+      "deleted": "A Loading Product is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Loading Product {{ id }}?"
+      },
+      "detail": {
+        "title": "Loading Product"
+      },
+      "id": "ID",
+      "units": "Units",
+      "status": "Status",
+      "product": "Product",
+      "loading": "Loading"
+    }
+  }
+}

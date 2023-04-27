@@ -1,0 +1,9 @@
+{
+  "yardManagementApp": {
+    "InvoiceStatus": {
+      "null": "",
+      "PENDING": "PENDING",
+      "DONE": "DONE"
+    }
+  }
+}
