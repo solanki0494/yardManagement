@@ -1,0 +1,41 @@
+{
+  "applications": ["yardManagement"],
+  "changelogDate": "20230427111854",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "product",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "defaultPrice",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "defaultGST",
+      "fieldType": "Double"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Product",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "inventory",
+      "otherEntityRelationshipName": "product",
+      "relationshipName": "inventory",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "loadingProduct",
+      "otherEntityRelationshipName": "product",
+      "relationshipName": "loadingProduct",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "no"
+}

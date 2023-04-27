@@ -1,0 +1,80 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-product-heading" data-cy="ProductCreateUpdateHeading" jhiTranslate="yardManagementApp.product.home.createOrEditLabel">
+        Create or edit a Product
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="yardManagementApp.product.name" for="field_name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="yardManagementApp.product.defaultPrice" for="field_defaultPrice">Default Price</label>
+          <input
+            type="number"
+            class="form-control"
+            name="defaultPrice"
+            id="field_defaultPrice"
+            data-cy="defaultPrice"
+            formControlName="defaultPrice"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="yardManagementApp.product.defaultGST" for="field_defaultGST">Default GST</label>
+          <input
+            type="number"
+            class="form-control"
+            name="defaultGST"
+            id="field_defaultGST"
+            data-cy="defaultGST"
+            formControlName="defaultGST"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="yardManagementApp.product.inventory" for="field_inventory">Inventory</label>
+          <select
+            class="form-control"
+            id="field_inventory"
+            data-cy="inventory"
+            name="inventory"
+            formControlName="inventory"
+            [compareWith]="compareInventory"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="inventoryOption" *ngFor="let inventoryOption of inventoriesSharedCollection">
+              {{ inventoryOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
