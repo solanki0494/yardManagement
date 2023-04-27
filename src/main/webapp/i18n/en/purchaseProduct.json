@@ -1,0 +1,28 @@
+{
+  "yardManagementApp": {
+    "purchaseProduct": {
+      "home": {
+        "title": "Purchase Products",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Purchase Product",
+        "createOrEditLabel": "Create or edit a Purchase Product",
+        "notFound": "No Purchase Products found"
+      },
+      "created": "A new Purchase Product is created with identifier {{ param }}",
+      "updated": "A Purchase Product is updated with identifier {{ param }}",
+      "deleted": "A Purchase Product is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Purchase Product {{ id }}?"
+      },
+      "detail": {
+        "title": "Purchase Product"
+      },
+      "id": "ID",
+      "units": "Units",
+      "unitPrice": "Unit Price",
+      "gst": "Gst",
+      "total": "Total",
+      "purchase": "Purchase"
+    }
+  }
+}

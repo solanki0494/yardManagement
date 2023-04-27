@@ -1,0 +1,52 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="purchaseProduct">
+      <h2 data-cy="purchaseProductDetailsHeading">
+        <span jhiTranslate="yardManagementApp.purchaseProduct.detail.title">Purchase Product</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ purchaseProduct.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="yardManagementApp.purchaseProduct.units">Units</span></dt>
+        <dd>
+          <span>{{ purchaseProduct.units }}</span>
+        </dd>
+        <dt><span jhiTranslate="yardManagementApp.purchaseProduct.unitPrice">Unit Price</span></dt>
+        <dd>
+          <span>{{ purchaseProduct.unitPrice }}</span>
+        </dd>
+        <dt><span jhiTranslate="yardManagementApp.purchaseProduct.gst">Gst</span></dt>
+        <dd>
+          <span>{{ purchaseProduct.gst }}</span>
+        </dd>
+        <dt><span jhiTranslate="yardManagementApp.purchaseProduct.total">Total</span></dt>
+        <dd>
+          <span>{{ purchaseProduct.total }}</span>
+        </dd>
+        <dt><span jhiTranslate="yardManagementApp.purchaseProduct.purchase">Purchase</span></dt>
+        <dd>
+          <div *ngIf="purchaseProduct.purchase">
+            <a [routerLink]="['/purchase', purchaseProduct.purchase.id, 'view']">{{ purchaseProduct.purchase.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/purchase-product', purchaseProduct.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

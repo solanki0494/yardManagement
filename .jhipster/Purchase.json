@@ -1,0 +1,45 @@
+{
+  "applications": ["yardManagement"],
+  "changelogDate": "20230427111938",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "purchase",
+  "fields": [
+    {
+      "fieldName": "purchaseTime",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "invoiceNumber",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Purchase",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "invoice",
+      "otherEntityRelationshipName": "purchase",
+      "ownerSide": true,
+      "relationshipName": "invoice",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "purchaseProduct",
+      "otherEntityRelationshipName": "purchase",
+      "relationshipName": "purchaseProduct",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "loading",
+      "otherEntityRelationshipName": "purchase",
+      "ownerSide": false,
+      "relationshipName": "loading",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "no"
+}

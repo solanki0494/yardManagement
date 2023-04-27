@@ -1,0 +1,45 @@
+{
+  "applications": ["yardManagement"],
+  "changelogDate": "20230427111940",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "invoice",
+  "fields": [
+    {
+      "fieldName": "invoiceNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "companyInvoiceNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "gst",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "total",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "InvoiceStatus",
+      "fieldValues": "PENDING,DONE"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Invoice",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "purchase",
+      "otherEntityRelationshipName": "invoice",
+      "ownerSide": false,
+      "relationshipName": "purchase",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "no"
+}

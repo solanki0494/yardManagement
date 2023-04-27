@@ -1,0 +1,27 @@
+{
+  "applications": ["yardManagement"],
+  "changelogDate": "20230427111941",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "inventory",
+  "fields": [
+    {
+      "fieldName": "units",
+      "fieldType": "Double"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Inventory",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "product",
+      "otherEntityRelationshipName": "inventory",
+      "relationshipName": "product",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "no"
+}

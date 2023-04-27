@@ -1,0 +1,9 @@
+{
+  "yardManagementApp": {
+    "LoadingStatus": {
+      "null": "",
+      "IN": "IN",
+      "OUT": "OUT"
+    }
+  }
+}

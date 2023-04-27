@@ -1,0 +1,50 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="loadingProduct">
+      <h2 data-cy="loadingProductDetailsHeading">
+        <span jhiTranslate="yardManagementApp.loadingProduct.detail.title">Loading Product</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ loadingProduct.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="yardManagementApp.loadingProduct.units">Units</span></dt>
+        <dd>
+          <span>{{ loadingProduct.units }}</span>
+        </dd>
+        <dt><span jhiTranslate="yardManagementApp.loadingProduct.status">Status</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'yardManagementApp.LoadingStatus.' + loadingProduct.status }}">{{ loadingProduct.status }}</span>
+        </dd>
+        <dt><span jhiTranslate="yardManagementApp.loadingProduct.product">Product</span></dt>
+        <dd>
+          <div *ngIf="loadingProduct.product">
+            <a [routerLink]="['/product', loadingProduct.product.id, 'view']">{{ loadingProduct.product.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="yardManagementApp.loadingProduct.loading">Loading</span></dt>
+        <dd>
+          <div *ngIf="loadingProduct.loading">
+            <a [routerLink]="['/loading', loadingProduct.loading.id, 'view']">{{ loadingProduct.loading.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/loading-product', loadingProduct.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>
