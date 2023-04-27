@@ -1,0 +1,107 @@
+
+application {
+  config {
+    baseName yardManagement,
+    applicationType monolith,
+    packageName com.swisui.yard,
+    authenticationType jwt,
+    prodDatabaseType mysql,
+    clientFramework angular
+  }
+  entities *
+}
+
+entity Product {
+    name String
+    defaultPrice Double
+    defaultGST Double
+}
+
+entity Loading {
+	yard String
+    vehicleNumber String
+    loadingTime Instant    
+}
+
+entity LoadingProduct {
+    units Double
+    status LoadingStatus
+}
+
+
+enum LoadingStatus{
+	IN,OUT
+}
+
+relationship ManyToOne {
+	LoadingProduct to Product
+}
+
+relationship OneToMany {
+  Loading to LoadingProduct
+}
+
+entity Purchase {
+	purchaseTime Instant
+	invoiceNumber String
+    
+}
+
+entity PurchaseProduct{
+	units Double
+    unitPrice Double
+    gst Double
+    total Double
+}
+
+relationship OneToOne {
+  Loading to Purchase
+}
+
+relationship OneToMany {
+  Purchase to PurchaseProduct
+}
+
+
+entity Invoice {
+	invoiceNumber String
+    companyInvoiceNumber String
+    gst Double
+    total Double
+    status InvoiceStatus
+}
+
+enum InvoiceStatus{
+	PENDING,DONE
+}
+
+relationship OneToOne {
+  Purchase to Invoice
+}
+
+entity Inventory {
+    units Double    
+}
+
+entity Sales {
+	invoiceId Integer
+	saleTime Instant
+	buyer String
+}
+
+entity SalesProduct {
+	units Double
+    unitPrice Double
+    gst Double
+    total Double
+}
+
+relationship OneToMany {
+  Inventory to Product
+}
+
+
+relationship OneToMany {
+  Sales to SalesProduct
+}
+    
