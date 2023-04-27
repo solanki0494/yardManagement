@@ -1,0 +1,50 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="salesProduct">
+      <h2 data-cy="salesProductDetailsHeading"><span jhiTranslate="yardManagementApp.salesProduct.detail.title">Sales Product</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ salesProduct.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="yardManagementApp.salesProduct.units">Units</span></dt>
+        <dd>
+          <span>{{ salesProduct.units }}</span>
+        </dd>
+        <dt><span jhiTranslate="yardManagementApp.salesProduct.unitPrice">Unit Price</span></dt>
+        <dd>
+          <span>{{ salesProduct.unitPrice }}</span>
+        </dd>
+        <dt><span jhiTranslate="yardManagementApp.salesProduct.gst">Gst</span></dt>
+        <dd>
+          <span>{{ salesProduct.gst }}</span>
+        </dd>
+        <dt><span jhiTranslate="yardManagementApp.salesProduct.total">Total</span></dt>
+        <dd>
+          <span>{{ salesProduct.total }}</span>
+        </dd>
+        <dt><span jhiTranslate="yardManagementApp.salesProduct.sales">Sales</span></dt>
+        <dd>
+          <div *ngIf="salesProduct.sales">
+            <a [routerLink]="['/sales', salesProduct.sales.id, 'view']">{{ salesProduct.sales.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/sales-product', salesProduct.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

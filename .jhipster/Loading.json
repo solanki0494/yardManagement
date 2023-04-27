@@ -1,0 +1,42 @@
+{
+  "applications": ["yardManagement"],
+  "changelogDate": "20230427111855",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "loading",
+  "fields": [
+    {
+      "fieldName": "yard",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "vehicleNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "loadingTime",
+      "fieldType": "Instant"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Loading",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "purchase",
+      "otherEntityRelationshipName": "loading",
+      "ownerSide": true,
+      "relationshipName": "purchase",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "loadingProduct",
+      "otherEntityRelationshipName": "loading",
+      "relationshipName": "loadingProduct",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "no"
+}

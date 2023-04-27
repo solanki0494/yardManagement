@@ -1,0 +1,28 @@
+{
+  "yardManagementApp": {
+    "loading": {
+      "home": {
+        "title": "Loadings",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Loading",
+        "createOrEditLabel": "Create or edit a Loading",
+        "notFound": "No Loadings found"
+      },
+      "created": "A new Loading is created with identifier {{ param }}",
+      "updated": "A Loading is updated with identifier {{ param }}",
+      "deleted": "A Loading is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Loading {{ id }}?"
+      },
+      "detail": {
+        "title": "Loading"
+      },
+      "id": "ID",
+      "yard": "Yard",
+      "vehicleNumber": "Vehicle Number",
+      "loadingTime": "Loading Time",
+      "purchase": "Purchase",
+      "loadingProduct": "Loading Product"
+    }
+  }
+}

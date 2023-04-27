@@ -1,0 +1,28 @@
+{
+  "yardManagementApp": {
+    "salesProduct": {
+      "home": {
+        "title": "Sales Products",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Sales Product",
+        "createOrEditLabel": "Create or edit a Sales Product",
+        "notFound": "No Sales Products found"
+      },
+      "created": "A new Sales Product is created with identifier {{ param }}",
+      "updated": "A Sales Product is updated with identifier {{ param }}",
+      "deleted": "A Sales Product is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Sales Product {{ id }}?"
+      },
+      "detail": {
+        "title": "Sales Product"
+      },
+      "id": "ID",
+      "units": "Units",
+      "unitPrice": "Unit Price",
+      "gst": "Gst",
+      "total": "Total",
+      "sales": "Sales"
+    }
+  }
+}

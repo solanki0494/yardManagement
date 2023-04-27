@@ -1,0 +1,39 @@
+{
+  "applications": ["yardManagement"],
+  "changelogDate": "20230427111902",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "sales_product",
+  "fields": [
+    {
+      "fieldName": "units",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "unitPrice",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "gst",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "total",
+      "fieldType": "Double"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "SalesProduct",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "sales",
+      "otherEntityRelationshipName": "salesProduct",
+      "relationshipName": "sales",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

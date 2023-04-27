@@ -1,0 +1,38 @@
+{
+  "applications": ["yardManagement"],
+  "changelogDate": "20230427111856",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "loading_product",
+  "fields": [
+    {
+      "fieldName": "units",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "LoadingStatus",
+      "fieldValues": "IN,OUT"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "LoadingProduct",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "product",
+      "otherEntityRelationshipName": "loadingProduct",
+      "relationshipName": "product",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "loading",
+      "otherEntityRelationshipName": "loadingProduct",
+      "relationshipName": "loading",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

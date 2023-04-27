@@ -1,0 +1,35 @@
+{
+  "applications": ["yardManagement"],
+  "changelogDate": "20230427111901",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "sales",
+  "fields": [
+    {
+      "fieldName": "invoiceId",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "saleTime",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "buyer",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Sales",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "salesProduct",
+      "otherEntityRelationshipName": "sales",
+      "relationshipName": "salesProduct",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "no"
+}

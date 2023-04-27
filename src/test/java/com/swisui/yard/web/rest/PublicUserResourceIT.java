@@ -8,7 +8,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.swisui.yard.IntegrationTest;
 import com.swisui.yard.domain.User;
 import com.swisui.yard.repository.UserRepository;
-import com.swisui.yard.repository.search.UserSearchRepository;
 import com.swisui.yard.security.AuthoritiesConstants;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,14 +32,6 @@ class PublicUserResourceIT {
 
     @Autowired
     private UserRepository userRepository;
-
-    /**
-     * This repository is mocked in the com.swisui.yard.repository.search test package.
-     *
-     * @see com.swisui.yard.repository.search.UserSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private UserSearchRepository mockUserSearchRepository;
 
     @Autowired
     private EntityManager em;

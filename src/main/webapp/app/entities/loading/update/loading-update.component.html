@@ -1,0 +1,81 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-loading-heading" data-cy="LoadingCreateUpdateHeading" jhiTranslate="yardManagementApp.loading.home.createOrEditLabel">
+        Create or edit a Loading
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="yardManagementApp.loading.yard" for="field_yard">Yard</label>
+          <input type="text" class="form-control" name="yard" id="field_yard" data-cy="yard" formControlName="yard" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="yardManagementApp.loading.vehicleNumber" for="field_vehicleNumber">Vehicle Number</label>
+          <input
+            type="text"
+            class="form-control"
+            name="vehicleNumber"
+            id="field_vehicleNumber"
+            data-cy="vehicleNumber"
+            formControlName="vehicleNumber"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="yardManagementApp.loading.loadingTime" for="field_loadingTime">Loading Time</label>
+          <div class="d-flex">
+            <input
+              id="field_loadingTime"
+              data-cy="loadingTime"
+              type="datetime-local"
+              class="form-control"
+              name="loadingTime"
+              formControlName="loadingTime"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="yardManagementApp.loading.purchase" for="field_purchase">Purchase</label>
+          <select
+            class="form-control"
+            id="field_purchase"
+            data-cy="purchase"
+            name="purchase"
+            formControlName="purchase"
+            [compareWith]="comparePurchase"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="purchaseOption" *ngFor="let purchaseOption of purchasesCollection">{{ purchaseOption.id }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

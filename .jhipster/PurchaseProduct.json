@@ -1,0 +1,39 @@
+{
+  "applications": ["yardManagement"],
+  "changelogDate": "20230427111858",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "purchase_product",
+  "fields": [
+    {
+      "fieldName": "units",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "unitPrice",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "gst",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "total",
+      "fieldType": "Double"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "PurchaseProduct",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "purchase",
+      "otherEntityRelationshipName": "purchaseProduct",
+      "relationshipName": "purchase",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}
