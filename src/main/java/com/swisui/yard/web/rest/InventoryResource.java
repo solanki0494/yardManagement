@@ -48,13 +48,13 @@ public class InventoryResource {
     @PostMapping("/inventories")
     public ResponseEntity<Inventory> createInventory(@RequestBody Inventory inventory) throws URISyntaxException {
         log.debug("REST request to save Inventory : {}", inventory);
-        if (inventory.getId() != null) {
+        if (inventory.getProduct() == null || inventory.getProduct().getId() == null) {
             throw new BadRequestAlertException("A new inventory cannot already have an ID", ENTITY_NAME, "idexists");
         }
         Inventory result = inventoryRepository.save(inventory);
         return ResponseEntity
-            .created(new URI("/api/inventories/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+            .created(new URI("/api/inventories/" + result.getProduct().getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getProduct().getId().toString()))
             .body(result);
     }
 
@@ -74,10 +74,10 @@ public class InventoryResource {
         @RequestBody Inventory inventory
     ) throws URISyntaxException {
         log.debug("REST request to update Inventory : {}, {}", id, inventory);
-        if (inventory.getId() == null) {
+        if (inventory.getProduct().getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, inventory.getId())) {
+        if (!Objects.equals(id, inventory.getProduct().getId())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
@@ -88,7 +88,7 @@ public class InventoryResource {
         Inventory result = inventoryRepository.save(inventory);
         return ResponseEntity
             .ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, inventory.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, inventory.getProduct().getId().toString()))
             .body(result);
     }
 
@@ -109,10 +109,10 @@ public class InventoryResource {
         @RequestBody Inventory inventory
     ) throws URISyntaxException {
         log.debug("REST request to partial update Inventory partially : {}, {}", id, inventory);
-        if (inventory.getId() == null) {
+        if (inventory.getProduct().getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, inventory.getId())) {
+        if (!Objects.equals(id, inventory.getProduct().getId())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
@@ -121,7 +121,7 @@ public class InventoryResource {
         }
 
         Optional<Inventory> result = inventoryRepository
-            .findById(inventory.getId())
+            .findById(inventory.getProduct().getId())
             .map(existingInventory -> {
                 if (inventory.getUnits() != null) {
                     existingInventory.setUnits(inventory.getUnits());
@@ -133,7 +133,7 @@ public class InventoryResource {
 
         return ResponseUtil.wrapOrNotFound(
             result,
-            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, inventory.getId().toString())
+            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, inventory.getProduct().getId().toString())
         );
     }
 

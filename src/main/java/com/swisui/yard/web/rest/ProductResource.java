@@ -91,57 +91,6 @@ public class ProductResource {
     }
 
     /**
-     * {@code PATCH  /products/:id} : Partial updates given fields of an existing product, field will ignore if it is null
-     *
-     * @param id the id of the product to save.
-     * @param product the product to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated product,
-     * or with status {@code 400 (Bad Request)} if the product is not valid,
-     * or with status {@code 404 (Not Found)} if the product is not found,
-     * or with status {@code 500 (Internal Server Error)} if the product couldn't be updated.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
-     */
-    @PatchMapping(value = "/products/{id}", consumes = { "application/json", "application/merge-patch+json" })
-    public ResponseEntity<Product> partialUpdateProduct(
-        @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody Product product
-    ) throws URISyntaxException {
-        log.debug("REST request to partial update Product partially : {}, {}", id, product);
-        if (product.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
-        if (!Objects.equals(id, product.getId())) {
-            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
-        }
-
-        if (!productRepository.existsById(id)) {
-            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
-        }
-
-        Optional<Product> result = productRepository
-            .findById(product.getId())
-            .map(existingProduct -> {
-                if (product.getName() != null) {
-                    existingProduct.setName(product.getName());
-                }
-                if (product.getDefaultPrice() != null) {
-                    existingProduct.setDefaultPrice(product.getDefaultPrice());
-                }
-                if (product.getDefaultGST() != null) {
-                    existingProduct.setDefaultGST(product.getDefaultGST());
-                }
-
-                return existingProduct;
-            })
-            .map(productRepository::save);
-
-        return ResponseUtil.wrapOrNotFound(
-            result,
-            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, product.getId().toString())
-        );
-    }
-
-    /**
      * {@code GET  /products} : get all the products.
      *
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of products in body.

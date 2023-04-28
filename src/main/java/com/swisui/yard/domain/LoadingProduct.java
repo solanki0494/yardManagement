@@ -7,13 +7,9 @@ import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-/**
- * A LoadingProduct.
- */
 @Entity
 @Table(name = "loading_product")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@SuppressWarnings("common-java:DuplicatedBlocks")
 public class LoadingProduct implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -23,6 +19,9 @@ public class LoadingProduct implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @ManyToOne
+    private Product product;
+
     @Column(name = "units")
     private Double units;
 
@@ -30,15 +29,18 @@ public class LoadingProduct implements Serializable {
     @Column(name = "status")
     private LoadingStatus status;
 
-    @ManyToOne
-    @JsonIgnoreProperties(value = { "inventory", "loadingProducts" }, allowSetters = true)
-    private Product product;
+    @Column(name = "unit_price")
+    private Double unitPrice;
+
+    @Column(name = "gst")
+    private Double gst;
+
+    @Column(name = "total")
+    private Double total;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "purchase", "loadingProducts" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "loadingProducts" }, allowSetters = true)
     private Loading loading;
-
-    // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
         return this.id;
@@ -105,6 +107,45 @@ public class LoadingProduct implements Serializable {
         return this;
     }
 
+    public Double getUnitPrice() {
+        return unitPrice;
+    }
+
+    public void setUnitPrice(Double unitPrice) {
+        this.unitPrice = unitPrice;
+    }
+
+    public LoadingProduct unitPrice(Double unitPrice) {
+        this.setUnitPrice(unitPrice);
+        return this;
+    }
+
+    public Double getGst() {
+        return gst;
+    }
+
+    public void setGst(Double gst) {
+        this.gst = gst;
+    }
+
+    public LoadingProduct gst(Double gst) {
+        this.setGst(gst);
+        return this;
+    }
+
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
+    }
+
+    public LoadingProduct total(Double total) {
+        this.setTotal(total);
+        return this;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -120,7 +161,6 @@ public class LoadingProduct implements Serializable {
 
     @Override
     public int hashCode() {
-        // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
         return getClass().hashCode();
     }
 

@@ -8,90 +8,65 @@ import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-/**
- * A Inventory.
- */
 @Entity
 @Table(name = "inventory")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@SuppressWarnings("common-java:DuplicatedBlocks")
 public class Inventory implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "product_id")
     private Long id;
+
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "product_id")
+    private Product product;
 
     @Column(name = "units")
     private Double units;
 
-    @OneToMany(mappedBy = "inventory")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "inventory", "loadingProducts" }, allowSetters = true)
-    private Set<Product> products = new HashSet<>();
-
-    // jhipster-needle-entity-add-field - JHipster will add fields here
-
     public Long getId() {
-        return this.id;
-    }
-
-    public Inventory id(Long id) {
-        this.setId(id);
-        return this;
+        return id;
     }
 
     public void setId(Long id) {
         this.id = id;
     }
 
+    public Inventory id(Long id) {
+        this.id = id;
+        return this;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public Inventory product(Product product) {
+        this.id = product.getId();
+        this.product = product;
+        return this;
+    }
+
+    public void setProduct(Product product) {
+        this.id = product.getId();
+        this.product = product;
+    }
+
     public Double getUnits() {
-        return this.units;
+        return units;
     }
 
     public Inventory units(Double units) {
-        this.setUnits(units);
+        this.units = units;
         return this;
     }
 
     public void setUnits(Double units) {
         this.units = units;
     }
-
-    public Set<Product> getProducts() {
-        return this.products;
-    }
-
-    public void setProducts(Set<Product> products) {
-        if (this.products != null) {
-            this.products.forEach(i -> i.setInventory(null));
-        }
-        if (products != null) {
-            products.forEach(i -> i.setInventory(this));
-        }
-        this.products = products;
-    }
-
-    public Inventory products(Set<Product> products) {
-        this.setProducts(products);
-        return this;
-    }
-
-    public Inventory addProduct(Product product) {
-        this.products.add(product);
-        product.setInventory(this);
-        return this;
-    }
-
-    public Inventory removeProduct(Product product) {
-        this.products.remove(product);
-        product.setInventory(null);
-        return this;
-    }
-
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
     public boolean equals(Object o) {
@@ -101,7 +76,7 @@ public class Inventory implements Serializable {
         if (!(o instanceof Inventory)) {
             return false;
         }
-        return id != null && id.equals(((Inventory) o).id);
+        return product.getId() != null && product.getId().equals(((Inventory) o).product.getId());
     }
 
     @Override
@@ -114,7 +89,7 @@ public class Inventory implements Serializable {
     @Override
     public String toString() {
         return "Inventory{" +
-            "id=" + getId() +
+            "id=" + product.getId() +
             ", units=" + getUnits() +
             "}";
     }

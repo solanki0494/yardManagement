@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <changeSet id="00000000000000" author="jhipster">
+        <createSequence sequenceName="sequence_generator" startValue="1050" incrementBy="50"/>
+    </changeSet>
+
+    <!--
+        JHipster core tables.
+        The initial schema has the '00000000000001' id, so that it is over-written if we re-generate it.
+    -->
+    <changeSet id="00000000000001" author="jhipster">
+        <createTable tableName="jhi_user">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="login" type="varchar(50)">
+                <constraints unique="true" nullable="false" uniqueConstraintName="ux_user_login"/>
+            </column>
+            <column name="password_hash" type="varchar(60)"/>
+            <column name="first_name" type="varchar(50)"/>
+            <column name="last_name" type="varchar(50)"/>
+            <column name="email" type="varchar(191)">
+                <constraints unique="true" nullable="true" uniqueConstraintName="ux_user_email"/>
+            </column>
+            <column name="image_url" type="varchar(256)"/>
+            <column name="activated" type="boolean" valueBoolean="false">
+                <constraints nullable="false" />
+            </column>
+            <column name="lang_key" type="varchar(10)"/>
+            <column name="activation_key" type="varchar(20)"/>
+            <column name="reset_key" type="varchar(20)"/>
+            <column name="created_by" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp"/>
+            <column name="reset_date" type="timestamp">
+                <constraints nullable="true"/>
+            </column>
+            <column name="last_modified_by" type="varchar(50)"/>
+            <column name="last_modified_date" type="timestamp"/>
+        </createTable>
+
+        <createTable tableName="jhi_authority">
+            <column name="name" type="varchar(50)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="jhi_user_authority">
+            <column name="user_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="authority_name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="user_id, authority_name" tableName="jhi_user_authority"/>
+
+        <addForeignKeyConstraint baseColumnNames="authority_name"
+                                 baseTableName="jhi_user_authority"
+                                 constraintName="fk_authority_name"
+                                 referencedColumnNames="name"
+                                 referencedTableName="jhi_authority"/>
+
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="jhi_user_authority"
+                                 constraintName="fk_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
+
+        <addNotNullConstraint   columnName="password_hash"
+                                columnDataType="varchar(60)"
+                                tableName="jhi_user"/>
+        <loadData
+            file="config/liquibase/data/user.csv"
+            separator=";"
+            tableName="jhi_user"
+            usePreparedStatements="true">
+            <column name="id" type="numeric"/>
+            <column name="activated" type="boolean"/>
+            <column name="created_date" type="timestamp"/>
+        </loadData>
+        <dropDefaultValue tableName="jhi_user" columnName="created_date" columnDataType="${datetimeType}"/>
+        <loadData
+            file="config/liquibase/data/authority.csv"
+            separator=";"
+            tableName="jhi_authority"
+            usePreparedStatements="true">
+            <column name="name" type="string"/>
+        </loadData>
+        <loadData
+            file="config/liquibase/data/user_authority.csv"
+            separator=";"
+            tableName="jhi_user_authority"
+            usePreparedStatements="true">
+            <column name="user_id" type="numeric"/>
+        </loadData>
+    </changeSet>
+
+    <changeSet author="jhipster" id="00000000000002" context="test">
+        <createTable tableName="jhi_date_time_wrapper">
+            <column  name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="jhi_date_time_wrapperPK"/>
+            </column>
+            <column name="instant" type="timestamp"/>
+            <column name="local_date_time" type="timestamp"/>
+            <column name="offset_date_time" type="timestamp"/>
+            <column name="zoned_date_time" type="timestamp"/>
+            <column name="local_time" type="time"/>
+            <column name="offset_time" type="time"/>
+            <column name="local_date" type="date"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1682679531118-1" author="Mohit Solanki (generated)">
+        <createTable tableName="INVENTORY">
+            <column name="PRODUCT_ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_INVENTORY"/>
+            </column>
+            <column name="UNITS" type="DOUBLE PRECISION"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1682679531118-5" author="Mohit Solanki (generated)">
+        <createTable tableName="LOADING">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_LOADING"/>
+            </column>
+            <column name="YARD" type="VARCHAR(255)"/>
+            <column name="VEHICLE_NUMBER" type="VARCHAR(255)"/>
+            <column name="LOADING_TIME" type="TIMESTAMP"/>
+            <column name="INVOICE_NUMBER" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1682679531118-6" author="Mohit Solanki (generated)">
+        <createTable tableName="LOADING_PRODUCT">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_LOADING_PRODUCT"/>
+            </column>
+            <column name="PRODUCT_ID" type="BIGINT"/>
+            <column name="UNITS" type="DOUBLE PRECISION"/>
+            <column name="STATUS" type="VARCHAR(255)"/>
+            <column name="UNIT_PRICE" type="DOUBLE PRECISION"/>
+            <column name="GST" type="DOUBLE PRECISION"/>
+            <column name="TOTAL" type="DOUBLE PRECISION"/>
+            <column name="LOADING_ID" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1682679531118-7" author="Mohit Solanki (generated)">
+        <createTable tableName="PRODUCT">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PRODUCT"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)"/>
+            <column name="DEFAULT_PRICE" type="DOUBLE PRECISION"/>
+            <column name="DEFAULT_GST" type="DOUBLE PRECISION"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1682679531118-8" author="Mohit Solanki (generated)">
+        <createTable tableName="SALES">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_SALES"/>
+            </column>
+            <column name="INVOICE_ID" type="INT"/>
+            <column name="SALE_TIME" type="TIMESTAMP"/>
+            <column name="BUYER" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1682679531118-9" author="Mohit Solanki (generated)">
+        <createTable tableName="SALES_PRODUCT">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_SALES_PRODUCT"/>
+            </column>
+            <column name="UNITS" type="DOUBLE PRECISION"/>
+            <column name="UNIT_PRICE" type="DOUBLE PRECISION"/>
+            <column name="GST" type="DOUBLE PRECISION"/>
+            <column name="TOTAL" type="DOUBLE PRECISION"/>
+            <column name="SALES_ID" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1682679531118-14" author="Mohit Solanki (generated)">
+        <createIndex indexName="FK_LOADING_PRODUCT_ON_LOADING_INDEX_A" tableName="LOADING_PRODUCT">
+            <column name="LOADING_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="1682679531118-15" author="Mohit Solanki (generated)">
+        <createIndex indexName="FK_LOADING_PRODUCT_ON_PRODUCT_INDEX_A" tableName="LOADING_PRODUCT">
+            <column name="PRODUCT_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="1682679531118-16" author="Mohit Solanki (generated)">
+        <createIndex indexName="FK_SALES_PRODUCT_ON_SALES_INDEX_B" tableName="SALES_PRODUCT">
+            <column name="SALES_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="1682679531118-17" author="Mohit Solanki (generated)">
+        <addForeignKeyConstraint baseColumnNames="PRODUCT_ID" baseTableName="INVENTORY"
+                                 constraintName="FK_INVENTORY_ON_PRODUCT" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="ID" referencedTableName="PRODUCT"/>
+    </changeSet>
+    <changeSet id="1682679531118-20" author="Mohit Solanki (generated)">
+        <addForeignKeyConstraint baseColumnNames="LOADING_ID" baseTableName="LOADING_PRODUCT"
+                                 constraintName="FK_LOADING_PRODUCT_ON_LOADING" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="ID" referencedTableName="LOADING"/>
+    </changeSet>
+    <changeSet id="1682679531118-21" author="Mohit Solanki (generated)">
+        <addForeignKeyConstraint baseColumnNames="PRODUCT_ID" baseTableName="LOADING_PRODUCT"
+                                 constraintName="FK_LOADING_PRODUCT_ON_PRODUCT" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="ID" referencedTableName="PRODUCT"/>
+    </changeSet>
+    <changeSet id="1682679531118-22" author="Mohit Solanki (generated)">
+        <addForeignKeyConstraint baseColumnNames="SALES_ID" baseTableName="SALES_PRODUCT"
+                                 constraintName="FK_SALES_PRODUCT_ON_SALES" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="ID" referencedTableName="SALES"/>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,6 +1,7 @@
 package com.swisui.yard.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.swisui.yard.service.dto.LoadingDTO;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
@@ -9,13 +10,9 @@ import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-/**
- * A Loading.
- */
 @Entity
 @Table(name = "loading")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@SuppressWarnings("common-java:DuplicatedBlocks")
 public class Loading implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -34,17 +31,15 @@ public class Loading implements Serializable {
     @Column(name = "loading_time")
     private Instant loadingTime;
 
-    @JsonIgnoreProperties(value = { "invoice", "purchaseProducts", "loading" }, allowSetters = true)
-    @OneToOne
-    @JoinColumn(unique = true)
-    private Purchase purchase;
+    @Column(name = "invoice_number")
+    private String invoiceNumber;
 
-    @OneToMany(mappedBy = "loading")
+    @OneToMany(mappedBy = "loading", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "product", "loading" }, allowSetters = true)
     private Set<LoadingProduct> loadingProducts = new HashSet<>();
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
+    public Loading() {}
 
     public Long getId() {
         return this.id;
@@ -98,16 +93,16 @@ public class Loading implements Serializable {
         this.loadingTime = loadingTime;
     }
 
-    public Purchase getPurchase() {
-        return this.purchase;
+    public String getInvoiceNumber() {
+        return invoiceNumber;
     }
 
-    public void setPurchase(Purchase purchase) {
-        this.purchase = purchase;
+    public void setInvoiceNumber(String invoiceNumber) {
+        this.invoiceNumber = invoiceNumber;
     }
 
-    public Loading purchase(Purchase purchase) {
-        this.setPurchase(purchase);
+    public Loading invoiceNumber(String invoiceNumber) {
+        this.setInvoiceNumber(invoiceNumber);
         return this;
     }
 
