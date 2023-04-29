@@ -1,23 +1,6 @@
 <div>
   <h2 id="page-heading" data-cy="LoadingProductHeading">
     <span jhiTranslate="yardManagementApp.loadingProduct.home.title">Loading Products</span>
-
-    <div class="d-flex justify-content-end">
-      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
-        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="yardManagementApp.loadingProduct.home.refreshListLabel">Refresh list</span>
-      </button>
-
-      <button
-        id="jh-create-entity"
-        data-cy="entityCreateButton"
-        class="btn btn-primary jh-create-entity create-loading-product"
-        [routerLink]="['/loading-product/new']"
-      >
-        <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="yardManagementApp.loadingProduct.home.createLabel"> Create a new Loading Product </span>
-      </button>
-    </div>
   </h2>
 
   <jhi-alert-error></jhi-alert-error>
@@ -44,9 +27,21 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="status">
+          <th scope="col" jhiSortBy="unitPrice">
             <div class="d-flex">
-              <span jhiTranslate="yardManagementApp.loadingProduct.status">Status</span>
+              <span jhiTranslate="yardManagementApp.purchaseProduct.unitPrice">Unit Price</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="gst">
+            <div class="d-flex">
+              <span jhiTranslate="yardManagementApp.purchaseProduct.gst">Gst</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="total">
+            <div class="d-flex">
+              <span jhiTranslate="yardManagementApp.purchaseProduct.total">Total</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
@@ -62,7 +57,6 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
@@ -71,43 +65,17 @@
             <a [routerLink]="['/loading-product', loadingProduct.id, 'view']">{{ loadingProduct.id }}</a>
           </td>
           <td>{{ loadingProduct.units }}</td>
-          <td jhiTranslate="{{ 'yardManagementApp.LoadingStatus.' + loadingProduct.status }}">{{ loadingProduct.status }}</td>
+          <td>{{ loadingProduct.unitPrice }}</td>
+          <td>{{ loadingProduct.gst }}</td>
+          <td>{{ loadingProduct.total }}</td>
           <td>
             <div *ngIf="loadingProduct.product">
-              <a [routerLink]="['/product', loadingProduct.product.id, 'view']">{{ loadingProduct.product.id }}</a>
+              <a [routerLink]="['/product', loadingProduct.product.id, 'view']">{{ loadingProduct.product.name }}</a>
             </div>
           </td>
           <td>
             <div *ngIf="loadingProduct.loading">
               <a [routerLink]="['/loading', loadingProduct.loading.id, 'view']">{{ loadingProduct.loading.id }}</a>
-            </div>
-          </td>
-          <td class="text-end">
-            <div class="btn-group">
-              <button
-                type="submit"
-                [routerLink]="['/loading-product', loadingProduct.id, 'view']"
-                class="btn btn-info btn-sm"
-                data-cy="entityDetailsButton"
-              >
-                <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-              </button>
-
-              <button
-                type="submit"
-                [routerLink]="['/loading-product', loadingProduct.id, 'edit']"
-                class="btn btn-primary btn-sm"
-                data-cy="entityEditButton"
-              >
-                <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-              </button>
-
-              <button type="submit" (click)="delete(loadingProduct)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
-                <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-              </button>
             </div>
           </td>
         </tr>

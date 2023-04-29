@@ -17,6 +17,82 @@
 
       <dl class="row-md jh-entity-details">
         <span>Add Product and show list</span>
+
+        <div class="alert alert-warning" id="no-result" *ngIf="loadingProducts?.length === 0">
+          <span jhiTranslate="yardManagementApp.loadingProduct.home.notFound">No Loading Products found</span>
+        </div>
+
+        <div class="table-responsive table-entities" id="entities" *ngIf="loadingProducts && loadingProducts.length > 0">
+          <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+              <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+                <th scope="col" jhiSortBy="id">
+                  <div class="d-flex">
+                    <span jhiTranslate="global.field.id">ID</span>
+                    <fa-icon class="p-1" icon="sort"></fa-icon>
+                  </div>
+                </th>
+                <th scope="col" jhiSortBy="units">
+                  <div class="d-flex">
+                    <span jhiTranslate="yardManagementApp.loadingProduct.units">Units</span>
+                    <fa-icon class="p-1" icon="sort"></fa-icon>
+                  </div>
+                </th>
+                <th scope="col" jhiSortBy="unitPrice">
+                  <div class="d-flex">
+                    <span jhiTranslate="yardManagementApp.purchaseProduct.unitPrice">Unit Price</span>
+                    <fa-icon class="p-1" icon="sort"></fa-icon>
+                  </div>
+                </th>
+                <th scope="col" jhiSortBy="gst">
+                  <div class="d-flex">
+                    <span jhiTranslate="yardManagementApp.purchaseProduct.gst">Gst</span>
+                    <fa-icon class="p-1" icon="sort"></fa-icon>
+                  </div>
+                </th>
+                <th scope="col" jhiSortBy="total">
+                  <div class="d-flex">
+                    <span jhiTranslate="yardManagementApp.purchaseProduct.total">Total</span>
+                    <fa-icon class="p-1" icon="sort"></fa-icon>
+                  </div>
+                </th>
+                <th scope="col" jhiSortBy="product.id">
+                  <div class="d-flex">
+                    <span jhiTranslate="yardManagementApp.loadingProduct.product">Product</span>
+                    <fa-icon class="p-1" icon="sort"></fa-icon>
+                  </div>
+                </th>
+                <th scope="col" jhiSortBy="loading.id">
+                  <div class="d-flex">
+                    <span jhiTranslate="yardManagementApp.loadingProduct.loading">Loading</span>
+                    <fa-icon class="p-1" icon="sort"></fa-icon>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let loadingProduct of loadingProducts; trackBy: trackId" data-cy="entityTable">
+                <td>
+                  <a [routerLink]="['/loading-product', loadingProduct.id, 'view']">{{ loadingProduct.id }}</a>
+                </td>
+                <td>{{ loadingProduct.units }}</td>
+                <td>{{ loadingProduct.unitPrice }}</td>
+                <td>{{ loadingProduct.gst }}</td>
+                <td>{{ loadingProduct.total }}</td>
+                <td>
+                  <div *ngIf="loadingProduct.product">
+                    <a [routerLink]="['/product', loadingProduct.product.id, 'view']">{{ loadingProduct.product.name }}</a>
+                  </div>
+                </td>
+                <td>
+                  <div *ngIf="loadingProduct.loading">
+                    <a [routerLink]="['/loading', loadingProduct.loading.id, 'view']">{{ loadingProduct.loading.id }}</a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
         <!-- <dt><span jhiTranslate="global.field.id">ID</span></dt>
         <dd>
           <span>{{ loading.id }}</span>

@@ -11,6 +11,7 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -78,10 +79,19 @@ public class LoadingResource {
             .body(result);
     }
 
+    @GetMapping("/loadings/{loadingId}/products")
+    public ResponseEntity<Set<LoadingProduct>> getLoadingProducts(@PathVariable Long loadingId) {
+        log.debug("REST request to add Loading Products : {}, {}", loadingId);
+        if (!loadingService.existsById(loadingId)) {
+            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
+        }
+        return ResponseEntity.ok().body(loadingService.getLoadingProducts(loadingId));
+    }
+
     /**
      * {@code PUT  /loadings/:id} : Updates an existing loading.
      *
-     * @param id the id of the loading to save.
+     * @param id         the id of the loading to save.
      * @param loadingDTO the loading to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated loading,
      * or with status {@code 400 (Bad Request)} if the loading is not valid,

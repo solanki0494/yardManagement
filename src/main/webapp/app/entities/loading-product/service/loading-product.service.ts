@@ -14,7 +14,7 @@ export type EntityArrayResponseType = HttpResponse<ILoadingProduct[]>;
 
 @Injectable({ providedIn: 'root' })
 export class LoadingProductService {
-  protected resourceUrl = this.applicationConfigService.getEndpointFor('api/loading-products');
+  protected resourceUrl = this.applicationConfigService.getEndpointFor('api/loadings/1/products');
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 

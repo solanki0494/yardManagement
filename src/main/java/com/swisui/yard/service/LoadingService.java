@@ -10,6 +10,7 @@ import com.swisui.yard.service.mapper.LoadingMapper;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
@@ -42,6 +43,12 @@ public class LoadingService {
         loading.setVehicleNumber(loadingDTO.getYard());
         loading.setLoadingTime(loadingDTO.getLoadingTime());
         return loadingRepository.save(loading);
+    }
+
+    @Transactional(readOnly = true)
+    public Set<LoadingProduct> getLoadingProducts(Long loadingId) {
+        Loading loading = loadingRepository.findOneByIdWithLoadingProducts(loadingId);
+        return loading.getLoadingProducts();
     }
 
     @Transactional
