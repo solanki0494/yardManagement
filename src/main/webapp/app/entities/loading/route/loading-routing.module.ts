@@ -20,6 +20,9 @@ const loadingRoute: Routes = [
   {
     path: ':id/view',
     component: LoadingDetailComponent,
+    data: {
+      defaultSort: 'id,' + ASC,
+    },
     resolve: {
       loading: LoadingRoutingResolveService,
     },
