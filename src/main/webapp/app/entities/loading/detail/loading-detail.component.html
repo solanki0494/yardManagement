@@ -1,7 +1,13 @@
 <div class="d-flex justify-content-center">
   <div class="col-8">
     <div *ngIf="loading">
-      <h2 data-cy="loadingDetailsHeading"><span jhiTranslate="yardManagementApp.loading.detail.title">Loading</span></h2>
+      <h2 data-cy="loadingDetailsHeading">
+        <span jhiTranslate="yardManagementApp.loading.detail.title">Loading</span>
+        <span>{{ loading.yard }}</span>
+        <span>{{ loading.vehicleNumber }}</span>
+        <span>{{ loading.loadingTime | formatMediumDatetime }}</span>
+        <span jhiTranslate="{{ 'yardManagementApp.LoadingStatus.' + loading.status }}">{{ loading.status }}</span>
+      </h2>
 
       <hr />
 
@@ -10,7 +16,8 @@
       <jhi-alert></jhi-alert>
 
       <dl class="row-md jh-entity-details">
-        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <span>Add Product and show list</span>
+        <!-- <dt><span jhiTranslate="global.field.id">ID</span></dt>
         <dd>
           <span>{{ loading.id }}</span>
         </dd>
@@ -26,12 +33,10 @@
         <dd>
           <span>{{ loading.loadingTime | formatMediumDatetime }}</span>
         </dd>
-        <dt><span jhiTranslate="yardManagementApp.loading.purchase">Purchase</span></dt>
+        <dt><span jhiTranslate="yardManagementApp.loadingProduct.status">Status</span></dt>
         <dd>
-          <div *ngIf="loading.purchase">
-            <a [routerLink]="['/purchase', loading.purchase.id, 'view']">{{ loading.purchase.id }}</a>
-          </div>
-        </dd>
+          <span jhiTranslate="{{ 'yardManagementApp.LoadingStatus.' + loading.status }}">{{ loading.status }}</span>
+        </dd> -->
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

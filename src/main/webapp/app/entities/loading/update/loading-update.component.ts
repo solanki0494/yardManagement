@@ -18,18 +18,13 @@ export class LoadingUpdateComponent implements OnInit {
   isSaving = false;
   loading: ILoading | null = null;
 
-  purchasesCollection: IPurchase[] = [];
-
   editForm: LoadingFormGroup = this.loadingFormService.createLoadingFormGroup();
 
   constructor(
     protected loadingService: LoadingService,
     protected loadingFormService: LoadingFormService,
-    protected purchaseService: PurchaseService,
     protected activatedRoute: ActivatedRoute
   ) {}
-
-  comparePurchase = (o1: IPurchase | null, o2: IPurchase | null): boolean => this.purchaseService.comparePurchase(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ loading }) => {
@@ -37,8 +32,6 @@ export class LoadingUpdateComponent implements OnInit {
       if (loading) {
         this.updateForm(loading);
       }
-
-      this.loadRelationshipsOptions();
     });
   }
 
@@ -78,17 +71,5 @@ export class LoadingUpdateComponent implements OnInit {
   protected updateForm(loading: ILoading): void {
     this.loading = loading;
     this.loadingFormService.resetForm(this.editForm, loading);
-
-    this.purchasesCollection = this.purchaseService.addPurchaseToCollectionIfMissing<IPurchase>(this.purchasesCollection, loading.purchase);
-  }
-
-  protected loadRelationshipsOptions(): void {
-    this.purchaseService
-      .query({ filter: 'loading-is-null' })
-      .pipe(map((res: HttpResponse<IPurchase[]>) => res.body ?? []))
-      .pipe(
-        map((purchases: IPurchase[]) => this.purchaseService.addPurchaseToCollectionIfMissing<IPurchase>(purchases, this.loading?.purchase))
-      )
-      .subscribe((purchases: IPurchase[]) => (this.purchasesCollection = purchases));
   }
 }

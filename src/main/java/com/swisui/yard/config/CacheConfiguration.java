@@ -49,20 +49,13 @@ public class CacheConfiguration {
             createCache(cm, com.swisui.yard.domain.Authority.class.getName());
             createCache(cm, com.swisui.yard.domain.User.class.getName() + ".authorities");
             createCache(cm, com.swisui.yard.domain.Product.class.getName());
-            createCache(cm, com.swisui.yard.domain.Product.class.getName() + ".loadingProducts");
             createCache(cm, com.swisui.yard.domain.Loading.class.getName());
-            createCache(cm, com.swisui.yard.domain.Loading.class.getName() + ".loadingProducts");
             createCache(cm, com.swisui.yard.domain.LoadingProduct.class.getName());
-            createCache(cm, com.swisui.yard.domain.Purchase.class.getName());
-            createCache(cm, com.swisui.yard.domain.Purchase.class.getName() + ".purchaseProducts");
-            createCache(cm, com.swisui.yard.domain.PurchaseProduct.class.getName());
-            createCache(cm, com.swisui.yard.domain.Invoice.class.getName());
+            createCache(cm, com.swisui.yard.domain.Loading.class.getName() + ".loadingProducts");
             createCache(cm, com.swisui.yard.domain.Inventory.class.getName());
-            createCache(cm, com.swisui.yard.domain.Inventory.class.getName() + ".products");
             createCache(cm, com.swisui.yard.domain.Sales.class.getName());
-            createCache(cm, com.swisui.yard.domain.Sales.class.getName() + ".salesProducts");
             createCache(cm, com.swisui.yard.domain.SalesProduct.class.getName());
-            // jhipster-needle-ehcache-add-entry
+            createCache(cm, com.swisui.yard.domain.Sales.class.getName() + ".sales");
         };
     }
 

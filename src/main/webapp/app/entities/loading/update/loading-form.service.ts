@@ -34,7 +34,6 @@ type LoadingFormGroupContent = {
   yard: FormControl<LoadingFormRawValue['yard']>;
   vehicleNumber: FormControl<LoadingFormRawValue['vehicleNumber']>;
   loadingTime: FormControl<LoadingFormRawValue['loadingTime']>;
-  purchase: FormControl<LoadingFormRawValue['purchase']>;
 };
 
 export type LoadingFormGroup = FormGroup<LoadingFormGroupContent>;
@@ -57,7 +56,6 @@ export class LoadingFormService {
       yard: new FormControl(loadingRawValue.yard),
       vehicleNumber: new FormControl(loadingRawValue.vehicleNumber),
       loadingTime: new FormControl(loadingRawValue.loadingTime),
-      purchase: new FormControl(loadingRawValue.purchase),
     });
   }
 

@@ -78,22 +78,12 @@ export class ProductUpdateComponent implements OnInit {
   protected updateForm(product: IProduct): void {
     this.product = product;
     this.productFormService.resetForm(this.editForm, product);
-
-    this.inventoriesSharedCollection = this.inventoryService.addInventoryToCollectionIfMissing<IInventory>(
-      this.inventoriesSharedCollection,
-      product.inventory
-    );
   }
 
   protected loadRelationshipsOptions(): void {
     this.inventoryService
       .query()
       .pipe(map((res: HttpResponse<IInventory[]>) => res.body ?? []))
-      .pipe(
-        map((inventories: IInventory[]) =>
-          this.inventoryService.addInventoryToCollectionIfMissing<IInventory>(inventories, this.product?.inventory)
-        )
-      )
       .subscribe((inventories: IInventory[]) => (this.inventoriesSharedCollection = inventories));
   }
 }

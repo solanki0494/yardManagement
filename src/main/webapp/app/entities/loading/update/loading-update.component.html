@@ -44,21 +44,6 @@
             />
           </div>
         </div>
-
-        <div class="row mb-3">
-          <label class="form-label" jhiTranslate="yardManagementApp.loading.purchase" for="field_purchase">Purchase</label>
-          <select
-            class="form-control"
-            id="field_purchase"
-            data-cy="purchase"
-            name="purchase"
-            formControlName="purchase"
-            [compareWith]="comparePurchase"
-          >
-            <option [ngValue]="null"></option>
-            <option [ngValue]="purchaseOption" *ngFor="let purchaseOption of purchasesCollection">{{ purchaseOption.id }}</option>
-          </select>
-        </div>
       </div>
 
       <div>

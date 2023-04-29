@@ -21,7 +21,6 @@ type ProductFormGroupContent = {
   name: FormControl<IProduct['name']>;
   defaultPrice: FormControl<IProduct['defaultPrice']>;
   defaultGST: FormControl<IProduct['defaultGST']>;
-  inventory: FormControl<IProduct['inventory']>;
 };
 
 export type ProductFormGroup = FormGroup<ProductFormGroupContent>;
@@ -44,7 +43,6 @@ export class ProductFormService {
       name: new FormControl(productRawValue.name),
       defaultPrice: new FormControl(productRawValue.defaultPrice),
       defaultGST: new FormControl(productRawValue.defaultGST),
-      inventory: new FormControl(productRawValue.inventory),
     });
   }
 

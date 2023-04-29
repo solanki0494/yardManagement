@@ -1,9 +1,11 @@
 package com.swisui.yard.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.swisui.yard.domain.enumeration.LoadingStatus;
 import com.swisui.yard.service.dto.LoadingDTO;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
@@ -31,12 +33,16 @@ public class Loading implements Serializable {
     @Column(name = "loading_time")
     private Instant loadingTime;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private LoadingStatus status = LoadingStatus.IN;
+
     @Column(name = "invoice_number")
     private String invoiceNumber;
 
-    @OneToMany(mappedBy = "loading", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "loading", cascade = CascadeType.ALL, orphanRemoval = true)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "product", "loading" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "loading" }, allowSetters = true)
     private Set<LoadingProduct> loadingProducts = new HashSet<>();
 
     public Loading() {}
@@ -106,21 +112,35 @@ public class Loading implements Serializable {
         return this;
     }
 
+    public LoadingStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(LoadingStatus status) {
+        this.status = status;
+    }
+
+    public Loading status(LoadingStatus status) {
+        this.setStatus(status);
+        return this;
+    }
+
     public Set<LoadingProduct> getLoadingProducts() {
         return this.loadingProducts;
     }
 
-    public void setLoadingProducts(Set<LoadingProduct> loadingProducts) {
+    public void setLoadingProducts(Collection<LoadingProduct> loadingProducts) {
         if (this.loadingProducts != null) {
             this.loadingProducts.forEach(i -> i.setLoading(null));
         }
         if (loadingProducts != null) {
             loadingProducts.forEach(i -> i.setLoading(this));
         }
-        this.loadingProducts = loadingProducts;
+        this.loadingProducts.clear();
+        this.loadingProducts.addAll(loadingProducts);
     }
 
-    public Loading loadingProducts(Set<LoadingProduct> loadingProducts) {
+    public Loading loadingProducts(Collection<LoadingProduct> loadingProducts) {
         this.setLoadingProducts(loadingProducts);
         return this;
     }

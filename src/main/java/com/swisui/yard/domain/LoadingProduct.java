@@ -19,15 +19,12 @@ public class LoadingProduct implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnoreProperties(value = { "defaultPrice", "defaultGST", "inventory" }, allowSetters = true)
     private Product product;
 
     @Column(name = "units")
     private Double units;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status")
-    private LoadingStatus status;
 
     @Column(name = "unit_price")
     private Double unitPrice;
@@ -66,19 +63,6 @@ public class LoadingProduct implements Serializable {
 
     public void setUnits(Double units) {
         this.units = units;
-    }
-
-    public LoadingStatus getStatus() {
-        return this.status;
-    }
-
-    public LoadingProduct status(LoadingStatus status) {
-        this.setStatus(status);
-        return this;
-    }
-
-    public void setStatus(LoadingStatus status) {
-        this.status = status;
     }
 
     public Product getProduct() {
@@ -170,7 +154,6 @@ public class LoadingProduct implements Serializable {
         return "LoadingProduct{" +
             "id=" + getId() +
             ", units=" + getUnits() +
-            ", status='" + getStatus() + "'" +
             "}";
     }
 }

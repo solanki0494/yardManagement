@@ -56,12 +56,6 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="inventory.id">
-            <div class="d-flex">
-              <span jhiTranslate="yardManagementApp.product.inventory">Inventory</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -73,11 +67,6 @@
           <td>{{ product.name }}</td>
           <td>{{ product.defaultPrice }}</td>
           <td>{{ product.defaultGST }}</td>
-          <td>
-            <div *ngIf="product.inventory">
-              <a [routerLink]="['/inventory', product.inventory.id, 'view']">{{ product.inventory.id }}</a>
-            </div>
-          </td>
           <td class="text-end">
             <div class="btn-group">
               <button

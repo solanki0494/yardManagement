@@ -56,9 +56,9 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="purchase.id">
+          <th scope="col" jhiSortBy="loadingStatus">
             <div class="d-flex">
-              <span jhiTranslate="yardManagementApp.loading.purchase">Purchase</span>
+              <span jhiTranslate="yardManagementApp.loading.status">Status</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
@@ -73,11 +73,7 @@
           <td>{{ loading.yard }}</td>
           <td>{{ loading.vehicleNumber }}</td>
           <td>{{ loading.loadingTime | formatMediumDatetime }}</td>
-          <td>
-            <div *ngIf="loading.purchase">
-              <a [routerLink]="['/purchase', loading.purchase.id, 'view']">{{ loading.purchase.id }}</a>
-            </div>
-          </td>
+          <td>{{ loading.status }}</td>
           <td class="text-end">
             <div class="btn-group">
               <button

@@ -26,12 +26,6 @@
         <dd>
           <span>{{ product.defaultGST }}</span>
         </dd>
-        <dt><span jhiTranslate="yardManagementApp.product.inventory">Inventory</span></dt>
-        <dd>
-          <div *ngIf="product.inventory">
-            <a [routerLink]="['/inventory', product.inventory.id, 'view']">{{ product.inventory.id }}</a>
-          </div>
-        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

@@ -18,6 +18,8 @@ public class LoadingDTO implements Serializable {
 
     private Instant loadingTime;
 
+    public LoadingDTO() {}
+
     public LoadingDTO(Loading loading) {
         this(loading.getId(), loading.getYard(), loading.getVehicleNumber(), loading.getLoadingTime());
     }

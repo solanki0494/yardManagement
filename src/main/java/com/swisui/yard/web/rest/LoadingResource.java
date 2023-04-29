@@ -1,6 +1,7 @@
 package com.swisui.yard.web.rest;
 
 import com.swisui.yard.domain.Loading;
+import com.swisui.yard.domain.LoadingProduct;
 import com.swisui.yard.service.LoadingService;
 import com.swisui.yard.service.dto.LoadingDTO;
 import com.swisui.yard.web.rest.errors.BadRequestAlertException;
@@ -50,7 +51,8 @@ public class LoadingResource {
     @PostMapping("/loadings")
     public ResponseEntity<Loading> createLoading(@RequestBody LoadingDTO loadingDTO) throws URISyntaxException {
         log.debug("REST request to save Loading : {}", loadingDTO);
-        if (loadingDTO.getId() != null) {
+
+        if (loadingDTO.getId() != null && loadingDTO.getId() != 0) {
             throw new BadRequestAlertException("A new loading cannot already have an ID", ENTITY_NAME, "idexists");
         }
         if (loadingDTO.getLoadingTime() == null) {
@@ -60,6 +62,19 @@ public class LoadingResource {
         return ResponseEntity
             .created(new URI("/api/loadings/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+            .body(result);
+    }
+
+    @PostMapping("/loadings/{loadingId}/products")
+    public ResponseEntity<Loading> addProducts(@PathVariable Long loadingId, @RequestBody List<LoadingProduct> loadingProducts) {
+        log.debug("REST request to add Loading Products : {}, {}", loadingId);
+        if (!loadingService.existsById(loadingId)) {
+            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
+        }
+        Loading result = loadingService.save(loadingId, loadingProducts);
+        return ResponseEntity
+            .ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, loadingId.toString()))
             .body(result);
     }
 
@@ -90,7 +105,7 @@ public class LoadingResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Loading result = loadingService.save(loadingDTO);
+        Loading result = loadingService.update(loadingDTO);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, loadingDTO.getId().toString()))

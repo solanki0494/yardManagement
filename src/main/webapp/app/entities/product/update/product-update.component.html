@@ -41,23 +41,6 @@
             formControlName="defaultGST"
           />
         </div>
-
-        <div class="row mb-3">
-          <label class="form-label" jhiTranslate="yardManagementApp.product.inventory" for="field_inventory">Inventory</label>
-          <select
-            class="form-control"
-            id="field_inventory"
-            data-cy="inventory"
-            name="inventory"
-            formControlName="inventory"
-            [compareWith]="compareInventory"
-          >
-            <option [ngValue]="null"></option>
-            <option [ngValue]="inventoryOption" *ngFor="let inventoryOption of inventoriesSharedCollection">
-              {{ inventoryOption.id }}
-            </option>
-          </select>
-        </div>
       </div>
 
       <div>

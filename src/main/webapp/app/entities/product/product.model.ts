@@ -5,7 +5,6 @@ export interface IProduct {
   name?: string | null;
   defaultPrice?: number | null;
   defaultGST?: number | null;
-  inventory?: Pick<IInventory, 'id'> | null;
 }
 
 export type NewProduct = Omit<IProduct, 'id'> & { id: null };
