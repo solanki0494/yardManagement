@@ -30,18 +30,28 @@ public class LoadingService {
     }
 
     @Transactional
-    public Loading save(LoadingDTO loadingDTO) {
-        return loadingRepository.save(loadingMapper.loadingDTOToLoading(loadingDTO));
-    }
+    public Loading save(Loading loading) {
+        Map<Long, Product> productsMap = productRepository
+            .findAll()
+            .stream()
+            .collect(Collectors.toMap(Product::getId, Function.identity()));
 
-    @Transactional
-    public Loading update(LoadingDTO loadingDTO) {
-        Loading loading = loadingRepository
-            .findById(loadingDTO.getId())
-            .orElseThrow(() -> new IllegalArgumentException("Loading not found."));
-        loading.setYard(loadingDTO.getYard());
-        loading.setVehicleNumber(loadingDTO.getYard());
-        loading.setLoadingTime(loadingDTO.getLoadingTime());
+        loading
+            .getLoadingProducts()
+            .stream()
+            .forEach(loadingProduct -> {
+                Product product = productsMap.get(loadingProduct.getProduct().getId());
+                if (loadingProduct.getUnits() == null) {
+                    loadingProduct.setUnits(0d);
+                }
+                if (loadingProduct.getUnitPrice() == null) {
+                    loadingProduct.setUnitPrice(product.getDefaultPrice());
+                }
+                if (loadingProduct.getGst() == null) {
+                    loadingProduct.setGst(product.getDefaultGST());
+                }
+                loadingProduct.setTotal(loadingProduct.getUnits() * loadingProduct.getUnitPrice() * (1.0 + loadingProduct.getGst()));
+            });
         return loadingRepository.save(loading);
     }
 
@@ -81,7 +91,7 @@ public class LoadingService {
 
     @Transactional(readOnly = true)
     public Optional<Loading> getLoading(Long id) {
-        return loadingRepository.findById(id);
+        return Optional.ofNullable(loadingRepository.findOneByIdWithLoadingProducts(id));
     }
 
     @Transactional

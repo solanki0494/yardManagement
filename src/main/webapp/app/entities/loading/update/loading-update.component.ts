@@ -9,6 +9,7 @@ import { ILoading } from '../loading.model';
 import { LoadingService } from '../service/loading.service';
 import { IPurchase } from 'app/entities/purchase/purchase.model';
 import { PurchaseService } from 'app/entities/purchase/service/purchase.service';
+import { IProduct } from 'app/entities/product/product.model';
 
 @Component({
   selector: 'jhi-loading-update',
@@ -17,6 +18,11 @@ import { PurchaseService } from 'app/entities/purchase/service/purchase.service'
 export class LoadingUpdateComponent implements OnInit {
   isSaving = false;
   loading: ILoading | null = null;
+  products: IProduct[] = [
+    { id: 1, name: 'p1' },
+    { id: 2, name: 'p2' },
+    { id: 3, name: 'p3' },
+  ];
 
   editForm: LoadingFormGroup = this.loadingFormService.createLoadingFormGroup();
 

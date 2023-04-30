@@ -86,7 +86,7 @@ export class LoadingDetailComponent implements OnInit {
     const queryObject = {
       sort: this.getSortQueryParam(predicate, ascending),
     };
-    return this.loadingProductService.query(queryObject).pipe(tap(() => (this.isLoading = false)));
+    return this.loadingProductService.query(this.loading?.id || 0, queryObject).pipe(tap(() => (this.isLoading = false)));
   }
 
   protected handleNavigation(predicate?: string, ascending?: boolean): void {

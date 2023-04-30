@@ -6,6 +6,7 @@ import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
 import { ILoadingProduct, NewLoadingProduct } from '../loading-product.model';
+import { ILoading } from 'app/entities/loading/loading.model';
 
 export type PartialUpdateLoadingProduct = Partial<ILoadingProduct> & Pick<ILoadingProduct, 'id'>;
 
@@ -14,7 +15,7 @@ export type EntityArrayResponseType = HttpResponse<ILoadingProduct[]>;
 
 @Injectable({ providedIn: 'root' })
 export class LoadingProductService {
-  protected resourceUrl = this.applicationConfigService.getEndpointFor('api/loadings/1/products');
+  protected resourceUrl = this.applicationConfigService.getEndpointFor('api/loadings');
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
@@ -38,9 +39,9 @@ export class LoadingProductService {
     return this.http.get<ILoadingProduct>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
-  query(req?: any): Observable<EntityArrayResponseType> {
+  query(loadingId: number, req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
-    return this.http.get<ILoadingProduct[]>(this.resourceUrl, { params: options, observe: 'response' });
+    return this.http.get<ILoadingProduct[]>(`${this.resourceUrl}/${loadingId}/products`, { params: options, observe: 'response' });
   }
 
   delete(id: number): Observable<HttpResponse<{}>> {

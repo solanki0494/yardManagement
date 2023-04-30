@@ -44,6 +44,23 @@
             />
           </div>
         </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="yardManagementApp.loading.loadingProducts" for="field_loadingProducts">Products</label>
+          <select
+            multiple
+            class="form-control"
+            name="loadingProducts"
+            formControlName="loadingProducts"
+            id="field_loadingProducts"
+            data-cy="loadingProducts"
+          >
+            <option [ngValue]="null">{{ 'yardManagementApp.loading.loadingProducts' | translate }}</option>
+            <option *ngFor="let product of products" [value]="product">
+              {{ product.name }}
+            </option>
+          </select>
+        </div>
       </div>
 
       <div>

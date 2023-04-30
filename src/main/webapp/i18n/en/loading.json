@@ -23,7 +23,7 @@
       "loadingTime": "Loading Time",
       "status": "Loading Status",
       "purchase": "Purchase",
-      "loadingProduct": "Loading Product"
+      "loadingProducts": "Loading Products"
     }
   }
 }

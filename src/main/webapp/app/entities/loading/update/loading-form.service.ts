@@ -27,13 +27,14 @@ type LoadingFormRawValue = FormValueOf<ILoading>;
 
 type NewLoadingFormRawValue = FormValueOf<NewLoading>;
 
-type LoadingFormDefaults = Pick<NewLoading, 'id' | 'loadingTime'>;
+type LoadingFormDefaults = Pick<NewLoading, 'id' | 'loadingTime' | 'loadingProducts'>;
 
 type LoadingFormGroupContent = {
   id: FormControl<LoadingFormRawValue['id'] | NewLoading['id']>;
   yard: FormControl<LoadingFormRawValue['yard']>;
   vehicleNumber: FormControl<LoadingFormRawValue['vehicleNumber']>;
   loadingTime: FormControl<LoadingFormRawValue['loadingTime']>;
+  loadingProducts: FormControl<LoadingFormRawValue['loadingProducts'] | null>;
 };
 
 export type LoadingFormGroup = FormGroup<LoadingFormGroupContent>;
@@ -56,6 +57,7 @@ export class LoadingFormService {
       yard: new FormControl(loadingRawValue.yard),
       vehicleNumber: new FormControl(loadingRawValue.vehicleNumber),
       loadingTime: new FormControl(loadingRawValue.loadingTime),
+      loadingProducts: new FormControl(loadingRawValue.loadingProducts),
     });
   }
 
@@ -79,6 +81,7 @@ export class LoadingFormService {
     return {
       id: null,
       loadingTime: currentTime,
+      loadingProducts: [],
     };
   }
 

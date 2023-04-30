@@ -50,16 +50,16 @@ public class LoadingResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/loadings")
-    public ResponseEntity<Loading> createLoading(@RequestBody LoadingDTO loadingDTO) throws URISyntaxException {
-        log.debug("REST request to save Loading : {}", loadingDTO);
+    public ResponseEntity<Loading> createLoading(@RequestBody Loading loading) throws URISyntaxException {
+        log.debug("REST request to save Loading : {}", loading);
 
-        if (loadingDTO.getId() != null && loadingDTO.getId() != 0) {
+        if (loading.getId() != null && loading.getId() != 0) {
             throw new BadRequestAlertException("A new loading cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        if (loadingDTO.getLoadingTime() == null) {
-            loadingDTO.setLoadingTime(Instant.now());
+        if (loading.getLoadingTime() == null) {
+            loading.setLoadingTime(Instant.now());
         }
-        Loading result = loadingService.save(loadingDTO);
+        Loading result = loadingService.save(loading);
         return ResponseEntity
             .created(new URI("/api/loadings/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -92,22 +92,20 @@ public class LoadingResource {
      * {@code PUT  /loadings/:id} : Updates an existing loading.
      *
      * @param id         the id of the loading to save.
-     * @param loadingDTO the loading to update.
+     * @param loading the loading to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated loading,
      * or with status {@code 400 (Bad Request)} if the loading is not valid,
      * or with status {@code 500 (Internal Server Error)} if the loading couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/loadings/{id}")
-    public ResponseEntity<Loading> updateLoading(
-        @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody LoadingDTO loadingDTO
-    ) throws URISyntaxException {
-        log.debug("REST request to update Loading : {}, {}", id, loadingDTO);
-        if (loadingDTO.getId() == null) {
+    public ResponseEntity<Loading> updateLoading(@PathVariable(value = "id", required = false) final Long id, @RequestBody Loading loading)
+        throws URISyntaxException {
+        log.debug("REST request to update Loading : {}, {}", id, loading);
+        if (loading.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, loadingDTO.getId())) {
+        if (!Objects.equals(id, loading.getId())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
@@ -115,10 +113,10 @@ public class LoadingResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Loading result = loadingService.update(loadingDTO);
+        Loading result = loadingService.save(loading);
         return ResponseEntity
             .ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, loadingDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, loading.getId().toString()))
             .body(result);
     }
 
