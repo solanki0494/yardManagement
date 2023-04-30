@@ -33,7 +33,7 @@
         <div class="row mb-3">
           <label class="form-label" jhiTranslate="yardManagementApp.loading.loadingTime" for="field_loadingTime">Loading Time</label>
           <div class="d-flex">
-            <input
+            <!--<input
               id="field_loadingTime"
               data-cy="loadingTime"
               type="datetime-local"
@@ -41,13 +41,20 @@
               name="loadingTime"
               formControlName="loadingTime"
               placeholder="YYYY-MM-DD HH:mm"
-            />
+            />-->
+            <p-calendar styleClass="w-full" [showIcon]="true" formControlName="loadingTime"></p-calendar>
           </div>
         </div>
 
         <div class="row mb-3">
           <label class="form-label" jhiTranslate="yardManagementApp.loading.loadingProducts" for="field_loadingProducts">Products</label>
-          <select
+
+          <div *ngFor="let product of products" class="field-checkbox">
+            {{ product | json }}
+            <!--            <p-checkbox name="group" [value]="category" formControlName="loadingProducts" [inputId]="category.key"></p-checkbox>-->
+            <!--            <label [for]="category.key">{{ category.name }}</label>-->
+          </div>
+          <!--<select
             multiple
             class="form-control"
             name="loadingProducts"
@@ -59,7 +66,7 @@
             <option *ngFor="let product of products" [value]="product">
               {{ product.name }}
             </option>
-          </select>
+          </select>-->
         </div>
       </div>
 

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500&display=swap');
+
 /*
  * Bootstrap overrides https://getbootstrap.com/docs/5.1/customize/sass/
  * All values defined in bootstrap source
@@ -39,7 +41,10 @@ $body-bg: #e4e5e6;
 // Typography:
 // Font, line-height, and color for body text, headings, and more.
 
-$font-size-base: 1rem;
+$font-size-base: 0.874rem;
 
 $dropdown-link-hover-color: white;
 $dropdown-link-hover-bg: #343a40;
+
+$font-family-sans-serif: 'Sora', sans-serif;
+$font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !default;
