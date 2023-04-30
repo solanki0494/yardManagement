@@ -5,6 +5,11 @@ import { RouterModule } from '@angular/router';
   imports: [
     RouterModule.forChild([
       {
+        path: '',
+        redirectTo: 'loading',
+        pathMatch: 'full',
+      },
+      {
         path: 'product',
         data: { pageTitle: 'yardManagementApp.product.home.title' },
         loadChildren: () => import('./product/product.module').then(m => m.ProductModule),

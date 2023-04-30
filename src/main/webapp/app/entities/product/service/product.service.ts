@@ -30,6 +30,10 @@ export class ProductService {
     return this.http.patch<IProduct>(`${this.resourceUrl}/${this.getProductIdentifier(product)}`, product, { observe: 'response' });
   }
 
+  getAll(): Observable<HttpResponse<Array<IProduct>>> {
+    return this.http.get<Array<IProduct>>(this.resourceUrl, { observe: 'response' });
+  }
+
   find(id: number): Observable<EntityResponseType> {
     return this.http.get<IProduct>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }

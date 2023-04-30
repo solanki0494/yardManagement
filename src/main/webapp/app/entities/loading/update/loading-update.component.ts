@@ -10,6 +10,7 @@ import { LoadingService } from '../service/loading.service';
 import { IPurchase } from 'app/entities/purchase/purchase.model';
 import { PurchaseService } from 'app/entities/purchase/service/purchase.service';
 import { IProduct } from 'app/entities/product/product.model';
+import { ProductService } from '../../product/service/product.service';
 
 @Component({
   selector: 'jhi-loading-update',
@@ -18,16 +19,13 @@ import { IProduct } from 'app/entities/product/product.model';
 export class LoadingUpdateComponent implements OnInit {
   isSaving = false;
   loading: ILoading | null = null;
-  products: IProduct[] = [
-    { id: 1, name: 'p1' },
-    { id: 2, name: 'p2' },
-    { id: 3, name: 'p3' },
-  ];
+  products: any[] = [];
 
   editForm: LoadingFormGroup = this.loadingFormService.createLoadingFormGroup();
 
   constructor(
     protected loadingService: LoadingService,
+    protected productService: ProductService,
     protected loadingFormService: LoadingFormService,
     protected activatedRoute: ActivatedRoute
   ) {}
@@ -39,6 +37,14 @@ export class LoadingUpdateComponent implements OnInit {
         this.updateForm(loading);
       }
     });
+    this.productService.getAll().subscribe(
+      value =>
+        (this.products =
+          value.body?.map(v => ({
+            id: 0,
+            product: v,
+          })) ?? [])
+    );
   }
 
   previousState(): void {

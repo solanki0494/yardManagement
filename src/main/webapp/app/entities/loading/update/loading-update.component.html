@@ -14,59 +14,45 @@
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" jhiTranslate="yardManagementApp.loading.yard" for="field_yard">Yard</label>
-          <input type="text" class="form-control" name="yard" id="field_yard" data-cy="yard" formControlName="yard" />
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" jhiTranslate="yardManagementApp.loading.vehicleNumber" for="field_vehicleNumber">Vehicle Number</label>
-          <input
-            type="text"
-            class="form-control"
-            name="vehicleNumber"
-            id="field_vehicleNumber"
-            data-cy="vehicleNumber"
-            formControlName="vehicleNumber"
-          />
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" jhiTranslate="yardManagementApp.loading.loadingTime" for="field_loadingTime">Loading Time</label>
-          <div class="d-flex">
-            <!--<input
-              id="field_loadingTime"
-              data-cy="loadingTime"
-              type="datetime-local"
+          <div class="col-lg-6">
+            <label class="form-label fw-bold" jhiTranslate="yardManagementApp.loading.vehicleNumber" for="field_vehicleNumber">
+              Vehicle Number
+            </label>
+            <input
+              type="text"
               class="form-control"
-              name="loadingTime"
-              formControlName="loadingTime"
-              placeholder="YYYY-MM-DD HH:mm"
-            />-->
-            <p-calendar styleClass="w-full" [showIcon]="true" formControlName="loadingTime"></p-calendar>
+              name="vehicleNumber"
+              id="field_vehicleNumber"
+              data-cy="vehicleNumber"
+              formControlName="vehicleNumber"
+            />
           </div>
+          <div class="col-lg-6">
+            <label class="form-label fw-bold" jhiTranslate="yardManagementApp.loading.loadingTime" for="field_loadingTime">
+              Loading Time
+            </label>
+            <div class="d-block">
+              <p-calendar
+                styleClass="w-full"
+                [showIcon]="true"
+                formControlName="loadingTime"
+                inputStyleClass="form-control"
+                appendTo="body"
+              ></p-calendar>
+            </div>
+          </div>
+          <!--<div class="col-lg-6">
+            <label class="form-label fw-bold" jhiTranslate="yardManagementApp.loading.yard" for="field_yard">Yard</label>
+            <input type="text" class="form-control" name="yard" id="field_yard" data-cy="yard" formControlName="yard" />
+          </div>-->
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" jhiTranslate="yardManagementApp.loading.loadingProducts" for="field_loadingProducts">Products</label>
-
-          <div *ngFor="let product of products" class="field-checkbox">
-            {{ product | json }}
-            <!--            <p-checkbox name="group" [value]="category" formControlName="loadingProducts" [inputId]="category.key"></p-checkbox>-->
-            <!--            <label [for]="category.key">{{ category.name }}</label>-->
+          <label class="fw-bold">Products</label>
+          <div *ngFor="let product of products" class="field-checkbox col-4 mt-2">
+            <p-checkbox name="group" [value]="product" formControlName="loadingProducts" [inputId]="product.id.toString()"></p-checkbox>
+            <label [for]="product.id.toString()">{{ product.product.name }}</label>
           </div>
-          <!--<select
-            multiple
-            class="form-control"
-            name="loadingProducts"
-            formControlName="loadingProducts"
-            id="field_loadingProducts"
-            data-cy="loadingProducts"
-          >
-            <option [ngValue]="null">{{ 'yardManagementApp.loading.loadingProducts' | translate }}</option>
-            <option *ngFor="let product of products" [value]="product">
-              {{ product.name }}
-            </option>
-          </select>-->
         </div>
       </div>
 
